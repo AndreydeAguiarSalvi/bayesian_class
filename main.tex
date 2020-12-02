@@ -301,6 +301,20 @@ where I is the latent variable. We can also simplify the problem with
 which breaks the table in 5 fewer tables, reduce the model complexity and improves the flexibility of the model.
 
 
-\section{Class 11}
+\section{Class 12}
+\textbf{Gaussian Mixture Model (GMM)}
+A model of soft clustering with $N$ gaussian's can be described as
+\begin{equation}
+    P(X|\theta) = \pi_1\mathcal{N}(\mu_1, \Sigma_1) + \pi_2\mathcal{N}(\mu_2, \Sigma_2) + ... + \pi_N\mathcal{N}(\mu_N, \Sigma_N)
+\end{equation}
+where the $\theta$ weight matrix is 
+\begin{equation}
+    \theta = {\pi_1, \pi_2, ..., \pi_N, \mu_1, \mu_2, ..., \mu_N, \Sigma_1, \Sigma_2, ..., \Sigma_N}
+\end{equation}
+To goal of the train is
+\begin{equation}
+    \max_\theta P(X|\theta) = \prod_{i=1}^N P(X_1|\theta) = \prod_{i=1}^N \left( pi_1\mathcal{N}(\mu_1, \Sigma_1) + ... \right)
+\end{equation}
+By definition, the covariance matrix $\Sigma_k \succ 0$, once time we need to compute $\Sigma^{-1}$. Otherwise, we will have divisions by zero.
 
 \end{document}
