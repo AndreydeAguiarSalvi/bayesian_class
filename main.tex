@@ -141,7 +141,7 @@ where $L$ is the loss from the bayesian net, $w$ are the weights and $X$ are the
 \section{Class 6}
 \textbf{Maximum a Posteriori} to learn a distribution
 \begin{equation}
-    \theta_{MP} = arg max_\theta P(\theta|X) = arg max_\theta \frac{P(\theta|X)P(\theta)}{P(X)} = arg max_\theta P(\theta|X)P(\theta)    
+    \theta_{MP} = arg \max_\theta P(\theta|X) = arg \max_\theta \frac{P(\theta|X)P(\theta)}{P(X)} = arg \max_\theta P(\theta|X)P(\theta)    
 \end{equation}	
 We eliminate the denominator from the last equation, once time it don't have $\theta$
 Problems: \begin{itemize}
@@ -309,7 +309,7 @@ A model of soft clustering with $N$ gaussian's can be described as
 \end{equation}
 where the $\theta$ weight matrix is 
 \begin{equation}
-    \theta = {\pi_1, \pi_2, ..., \pi_N, \mu_1, \mu_2, ..., \mu_N, \Sigma_1, \Sigma_2, ..., \Sigma_N}
+    \theta = \{\pi_1, \pi_2, ..., \pi_N, \mu_1, \mu_2, ..., \mu_N, \Sigma_1, \Sigma_2, ..., \Sigma_N\}
 \end{equation}
 To goal of the train is
 \begin{equation}
@@ -338,4 +338,18 @@ Training a GMM, if we have hard-labels of the points, it is a easy problem: we j
     \item Need sources to estimate the gaussian parameters
 \end{itemize}
 
+\section{Class 14}
+\textbf{EM GMM} example
+\begin{enumerate}
+    \item Start with $N$ randomly placed gaussians parameters $\theta$
+    \item Until convergence: \begin{enumerate}
+        \item For each point $X_i$, compute $P(t = c|X_i, \theta)$
+        \item Update gaussian parameters $\theta$ to fit points assigned to them
+    \end{enumerate}
+\end{enumerate}
+
+\begin{itemize}
+    \item EM can train GMM faster than Stochastic Gradient Descent
+    \item EM suffers from local maxima (the exact solution is NP-Hard)
+\end{itemize}
 \end{document}
