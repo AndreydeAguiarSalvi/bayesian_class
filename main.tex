@@ -24,18 +24,18 @@ Three principles:
     \item avoid making extra assumptions
 \end{itemize}
 		
-\textbf{Variable Independence}
+\subsection{Variable Independence}
 \begin{equation}
 	P(X, Y) = P(X)P(Y)
 \end{equation}
 	
-\textbf{Conditional Probability}
+\subsection{Conditional Probability}
 \begin{equation}
     P(X|Y) = \frac{P(X, Y)}{Y(P)}
 \end{equation}
 where $P(X, Y)$ = joint probability and $P(Y)$ = marginal probability.
 		
-\textbf{Chain Rule}
+\subsection{Chain Rule}
 \begin{equation}
     P(X,Y) = P(X|Y)P(Y)
 \end{equation}
@@ -46,12 +46,12 @@ where $P(X, Y)$ = joint probability and $P(Y)$ = marginal probability.
 	P(X_1, ..., X_N) = \prod_{n=1}^{N} P(X_i|X1, ..., X_{i-1})
 \end{equation}
 		
-\textbf{Marginalization}
+\subsection{Marginalization}
 \begin{equation}	
 	p(X) = \int_{-\inf}^{in} p(X, Y)dY
 \end{equation}
 		
-\textbf{Bayes Theorem}
+\subsection{Bayes Theorem}
 
 \begin{equation}	
 	P(\theta|X) = \frac{P(X, \theta)}{P(X)} = \frac{P(X|\theta)P(\theta)}{P(X)}
@@ -59,7 +59,7 @@ where $P(X, Y)$ = joint probability and $P(Y)$ = marginal probability.
 where $P(\theta|X)$ = posterior probability, $P(X|\theta)P(\theta)$ = Likelihood, and $P(X)$ = Evidence.
 
 \section{Class 2}
-\textbf{Statistic Approaches}
+\subsection{Statistic Approaches}
 \begin{itemize}
     \item \textbf{Frequentist}: \begin{itemize}
         \item deterministic
@@ -81,10 +81,12 @@ where $P(\theta|X)$ = posterior probability, $P(X|\theta)P(\theta)$ = Likelihood
 \end{itemize}
 
 			
-\textbf{On-line learning}: use the current mini-batch (posterior) to update parameters, and then use it as prior in the new mini-batch.
+\subsection{On-line learning}
+Use the current mini-batch (posterior) to update parameters, and then use it as prior in the new mini-batch.
 
 \section{Class 3}
-\textbf{Bayesian Net} - is not a bayesian neural network. The \textbf{Nodes} are random variables and the \textbf{Edges} are the direct impact.
+\subsection{Bayesian Net}
+Is not a bayesian neural network. The \textbf{Nodes} are random variables and the \textbf{Edges} are the direct impact.
 \textbf{Model}: is the joint probability over all probabilites
 \begin{equation}
     P(X_1, ..., X_N) = \prod_{n=1}^{N} P(X_i|P_a(X_i))    
@@ -105,17 +107,17 @@ where R is father from G and S, S is parent from G, and the equation bellow is t
 \end{equation}
 
 \section{Class 5}
-\textbf{Univariate Normal Distribution}
+\subsection{Univariate Normal Distribution}
 \begin{equation}
 	\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}    
 \end{equation}
 	
-\textbf{Multivariate Normal Distribution}
+\subsection{Multivariate Normal Distribution}
 \begin{equation}
     \mathcal{N}(x|\mu, \Sigma^2) = \frac{1}{\sqrt{2\pi\Sigma^2}} e^{-\frac{1}{2}(x - \mu)^T\Sigma^-1(x - \mu)}    
 \end{equation}
 		
-\textbf{Linear Regression}
+\subsection{Linear Regression}
 \begin{equation}
     L(w) = \sum_{i=1}^{N} (w^T x_i - y_i)^2 = ||w^T X - y|| \rightarrow \min_w
 \end{equation}
@@ -140,7 +142,8 @@ where $L$ is the loss from the bayesian net, $w$ are the weights and $X$ are the
 \end{equation}
 
 \section{Class 6}
-\textbf{Maximum a Posteriori} to learn a distribution
+\subsection{Maximum a Posteriori} 
+To learn a distribution
 \begin{equation}
     \theta_{MP} = arg \max_\theta P(\theta|X) = arg \max_\theta \frac{P(\theta|X)P(\theta)}{P(X)} = arg \max_\theta P(\theta|X)P(\theta)    
 \end{equation}	
@@ -154,7 +157,8 @@ Problems: \begin{itemize}
 			
 
 \section{Class 7}
-\textbf{Conjugate Distribution} is a way to avoid computing the evidence ($P(X)$), which is costly. In the Bayes Probability
+\subsection{Conjugate Distribution} 
+It is a way to avoid computing the evidence ($P(X)$), which is costly. In the Bayes Probability
 \begin{equation}
     P(\theta|X) = \frac{P(X|\theta)P(\theta)}{P(X)}
 \end{equation}
@@ -176,7 +180,7 @@ in the likelihood, $P(X|\theta)$ is fixed by the model, $P(X)$ is fixed by the d
 
 \section{Class 8}
 
-\textbf{Gamma Distribution}
+\subsection{Gamma Distribution}
 \begin{equation}
     \Gamma(\gamma|a, b) = \frac{b^a}{\Gamma(a)} \gamma^{a-1}e^{-b\gamma}
 \end{equation}
@@ -188,7 +192,7 @@ where \begin{itemize}
     \item $Var[\gamma] = \frac{a}{b^2}$
 \end{itemize}
 
-\textbf{Precision}
+\subsection{Precision}
 \begin{equation}
     \gamma = \frac{1}{\sigma^2}
 \end{equation}
@@ -229,7 +233,7 @@ finally
 \end{equation}
 
 \section{Class 9}
-\textbf{Beta Distribution}
+\subsection{Beta Distribution}
 \begin{equation}
     \beta(X|a, b) = \frac{1}{\beta(a, b)}X^{a-1}(1 - X)^{b - 1}
 \end{equation}
@@ -251,7 +255,7 @@ where:\begin{itemize}
 \end{itemize} 
 \Eg to model a distribution with mean $0.8$ and standard deviation of $0.1$, thus $\mathbb{E}[X] = 0.8$ and $Var[X] = 0.1^2$. Consequently, a Beta distribution with $a = 12$ and $b = 3$ model it.
 
-\textbf{Bernoulli Distribution}
+\subsection{Bernoulli Distribution}
 The Beta distribution is the conjugate of the Bernoulli likelihood. \Eg a Bernoulli likelihood from a dataset
 \begin{equation}
     P(X|\theta) = \theta^{N_1}(1-\theta)^{N_0}
@@ -277,7 +281,7 @@ and finally, recognizing the equation before as a Beta distribution, we have
     P(\theta|X) = \beta(N_1 + a, N_0 + b)
 \end{equation}
 
-\textbf{Posteriors}
+\subsection{Posteriors}
 \begin{itemize}
     \item Pros \begin{itemize}
         \item Exact posterior
@@ -290,8 +294,8 @@ and finally, recognizing the equation before as a Beta distribution, we have
 \end{itemize}
 
 \section{Class 10}
-\textbf{Latent Variable} is a hidden variable that you never observe.
-\Eg creating a dataset of a job interview, measuring the GPA, IQ, School degree, and Phone, from a first stage of the interview, and a last attribute Onsite performance, from the second interview. Traditional ML models will suffer with the missing data. Even more, probably there are some correlation between the variables, and ponder each combination will increase the number of attributes. Thus, we can link all these attributes with a latent variable, called in this example as Intelligence. We can model the problem as:
+\subsection{Latent Variable} 
+It is a hidden variable that you never observe. \Eg creating a dataset of a job interview, measuring the GPA, IQ, School degree, and Phone, from a first stage of the interview, and a last attribute Onsite performance, from the second interview. Traditional ML models will suffer with the missing data. Even more, probably there are some correlation between the variables, and ponder each combination will increase the number of attributes. Thus, we can link all these attributes with a latent variable, called in this example as Intelligence. We can model the problem as:
 \begin{equation}
     P(X_1, X_2, X_3, X_4, X_5) = \sum_{i=1}^N P(X_1, X_2, X_3, X_4, X_5|I)P(I)
 \end{equation}
@@ -303,8 +307,8 @@ which breaks the table in 5 fewer tables, reduce the model complexity and improv
 
 
 \section{Class 12}
-\textbf{Gaussian Mixture Model (GMM)}
-A model of soft clustering with $N$ gaussian's can be described as
+\subsection{Gaussian Mixture Model (GMM)}
+It is a model of soft clustering with $N$ gaussian's can be described as
 \begin{equation}
     P(X|\theta) = \pi_1\mathcal{N}(\mu_1, \Sigma_1) + \pi_2\mathcal{N}(\mu_2, \Sigma_2) + ... + \pi_N\mathcal{N}(\mu_N, \Sigma_N)
 \end{equation}
@@ -340,7 +344,7 @@ Training a GMM, if we have hard-labels of the points, it is a easy problem: we j
 \end{itemize}
 
 \section{Class 14}
-\textbf{EM GMM} example
+\subsection{EM GMM}
 \begin{enumerate}
     \item Start with $N$ randomly placed gaussians parameters $\theta$
     \item Until convergence: \begin{enumerate}
@@ -355,7 +359,8 @@ Training a GMM, if we have hard-labels of the points, it is a easy problem: we j
 \end{itemize}
 
 \section{Class 15}
-\textbf{Concavity} - a function is concave if its second derivative is negative, or, if 
+\subsection{Concavity}
+A function is concave if its second derivative is negative, or, if 
 \begin{equation}
     f(\alpha a + (1 - \alpha)b) \geq \alpha f(a) + (1 - \alpha)f(b)
 \end{equation}
@@ -367,12 +372,14 @@ where $0 \leq \alpha \leq 1$. The Figure \ref{fig:inequality} shows an \eg
     \label{fig:inequality}
 \end{figure}
 
-\textbf{Jensen's inequality} - generalizing for any point, we have 
+\subsection{Jensen's inequality} 
+Generalizing the concavity for any point, we have 
 \begin{equation}
     f(\mathbb{E}_{p(t)t}) \geq \mathbb{E}_{p(t)}f(t)
 \end{equation}
 
-\textbf{Kullback-Leibler Divergence} - is a way to measure the difference between two probabilistic functions.
+\subsection{Kullback-Leibler Divergence} 
+It is a way to measure the difference between two probabilistic functions.
 \begin{equation}
     \mathcal{K}\mathcal{L}(p || q) = \int q(x) \log \frac{q(x)}{p(x)} dx
 \end{equation}
@@ -393,7 +400,6 @@ Properties: \begin{enumerate}
 \begin{equation}
     \leq \log \left(\mathbb{E}_q \frac{p}{q} \right) = \log \int q(x) \frac{p(x)}{q(x)}dx = 0
 \end{equation}
-
 \end{enumerate}
 
 \end{document}
