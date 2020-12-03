@@ -402,4 +402,60 @@ Properties: \begin{enumerate}
 \end{equation}
 \end{enumerate}
 
+\section{Class 16}
+\subsection{Expectation Maximization}
+Using the log for mathematical conveniences, we want to
+\begin{equation}
+    \max_\theta \log (P(X|\theta)) = \log \left( \prod_{i=1}^N p(x_i|\theta) \right)
+\end{equation}
+with the log properties, we have
+\begin{equation}
+    \max_\theta \log (P(X|\theta)) = \log \left( \sum_{i=1}^N \log (p(x_i|\theta)) \right)
+\end{equation}
+The probability $\log (p(x|\theta))$ is
+\begin{equation}
+    \log (p(x|\theta)) = \log \left( \sum_{i=1}^N \log (p(x_i|\theta)) \right)
+\end{equation}
+which we can change the marginal likelihood of the data object $x_i$ by the definition, resulting in
+\begin{equation}
+    = \sum_{i=1}^N \log \left( \sum_{c=1}^C p(x_i, t_i = c| \theta) \right)
+\end{equation}
+with the Jensen's inequality, we have
+\begin{equation}
+    = \sum_{i=1}^N \log \left( \sum_{c=1}^C p(x_i, t_i = c| \theta) \right) \geq \mathcal{L}(\theta)
+\end{equation}
+which means that instead of maximize the original marginal log likelihood, we will maximize a lower bound instead, which is more easy to maximize. Multiplying a dividing a term by the same value, we don't change the function. So, for convenience, we have
+\begin{equation}
+    = \sum_{i=1}^N \log \left( \sum_{c=1}^C \frac{\textcolor{blue}{q(t_i = c)}}{\textcolor{orange}{q(t_i = c)}} \textcolor{orange}{p(x_i, t_i = c| \theta)} \right) 
+\end{equation}
+rewriting, what we have is the Jensen's inequality, in this equation
+\begin{equation}
+    \log \left( \sum_c \textcolor{blue}{\alpha_c}\textcolor{orange}{\upsilon_c} \right) = \sum_c \left( \log \textcolor{blue}{\alpha_c}(\textcolor{orange}{\upsilon_c}) \right)
+\end{equation}
+applying the logarithm properties from the Jensen's inequality, we rebuild the function to
+\begin{equation}
+    \geq \sum_{i=1}^N \sum_{c=1}^C \left(\textcolor{blue}{q(t_i = c)} \log\frac{\textcolor{orange}{p(x_i, t_i = c| \theta}}{\textcolor{orange}{q(t_i = c)}}  \right)
+\end{equation}
+\begin{equation}
+    = \mathcal{L}(\theta, q)
+\end{equation}
+Graphically, we are changing the loss as we change the value of $q$, as in Figure \ref{fig:L}.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{L.pdf}
+    \caption{Loss from the General Form of Expectation of Maximization, changing $q$ value. $\theta$ is the x-axis.}
+    \label{fig:L}
+\end{figure}
+In practice, fixing $q$ we have a new loss $\mathcal{L}$, as the blue curve in figure, which tends to have an global optimum point similar to a local optimum point in the original curve, the purple. In the next $q$ step, we have another curve. Repeating iteratively, these variational lower-bound curves tends to lead $\theta$ to the global optimal point from the original curve.
+
+Summarizing:
+\begin{itemize}
+    \item $\log p(X|\theta) \geq \mathcal{L}(\theta, q)$ for any $q$, where $\mathcal{L}(\theta, q)$ is the variational lower bound
+    \item \textbf{E-step} \begin{equation}
+        q^{k+1} = arg \max_q \mathcal{L}(\theta^k, q)
+    \end{equation}
+    \item \textbf{M-step} \begin{equation}
+        \theta^{k+1} = arg \max_\theta \mathcal{L}(\theta, q^{k+1})
+    \end{equation}
+\end{itemize}
 \end{document}
