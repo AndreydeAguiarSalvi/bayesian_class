@@ -352,4 +352,47 @@ Training a GMM, if we have hard-labels of the points, it is a easy problem: we j
     \item EM can train GMM faster than Stochastic Gradient Descent
     \item EM suffers from local maxima (the exact solution is NP-Hard)
 \end{itemize}
+
+\section{Class 15}
+\textbf{Concavity} - a function is concave if its second derivative is negative, or, if 
+\begin{equation}
+    f(\alpha a + (1 - \alpha)b) \geq \alpha f(a) + (1 - \alpha)f(b)
+\end{equation}
+where $0 \leq \alpha \leq 1$. The Figure \ref{fig:inequality} shows an \eg
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{geogebra.pdf}
+    \caption{Showing the inequality from the equation. The equation from the right inequality side, which generates the straight segment, we call as G(x).}
+    \label{fig:inequality}
+\end{figure}
+
+\textbf{Jensen's inequality} - generalizing for any point, we have 
+\begin{equation}
+    f(\mathbb{E}_{p(t)t}) \geq \mathbb{E}_{p(t)}f(t)
+\end{equation}
+
+\textbf{Kullback-Leibler Divergence} - is a way to measure the difference between two probabilistic functions.
+\begin{equation}
+    \mathcal{K}\mathcal{L}(p || q) = \int q(x) \log \frac{q(x)}{p(x)} dx
+\end{equation}
+Properties: \begin{enumerate}
+    \item \begin{equation}
+        \mathcal{K}\mathcal{L}(p || q) \neq \mathcal{K}\mathcal{L}(q || p)
+    \end{equation}
+    \item \begin{equation}
+        \mathcal{K}\mathcal{L}(q || q) = 0
+    \end{equation}
+    \item \begin{equation}
+        \mathcal{K}\mathcal{L}(p || q) > 1
+    \end{equation}
+\textcolor{red}{Proof}
+\begin{equation}
+    - \mathcal{K}\mathcal{L}(p || q) = \mathbb{E}_q \left(-\log \frac{q}{p} \right) = \mathbb{E}_q \left(\log \frac{p}{q} \right)
+\end{equation}
+\begin{equation}
+    \leq \log \left(\mathbb{E}_q \frac{p}{q} \right) = \log \int q(x) \frac{p(x)}{q(x)}dx = 0
+\end{equation}
+
+\end{enumerate}
+
 \end{document}
