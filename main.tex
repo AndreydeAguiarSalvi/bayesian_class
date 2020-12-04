@@ -458,4 +458,40 @@ Summarizing:
         \theta^{k+1} = arg \max_\theta \mathcal{L}(\theta, q^{k+1})
     \end{equation}
 \end{itemize}
+
+\section{Class 17}
+\subsection{E Step}
+Fixing $\theta$ and maximizing $\mathcal{L}$, which is a log likelihood, changing $q$, which is a distribution
+\begin{equation}
+    \max_q \mathcal{L}(\theta^k, q)
+\end{equation}
+as in Figure \ref{fig:L}, we want to minimize the gap between the purple curve, the real log likelihood $\log P(X|\theta)$, and some another curve, which is fixed the current lower bound at step $k$. We can describe the gap as
+\begin{equation}
+    gap = \log P(X|\theta) - \mathcal{L}(\theta^k, q)
+\end{equation}
+which is equal to
+\begin{equation}
+    = \sum_{i=1}^N \log P(X_i|\theta) - \sum_{i=1}^N \sum_{c=1}^C q(t_i = c) \log \frac{P(X_i, t_i = c|\theta)}{q(t_i = c)}
+\end{equation}
+rearranging the summations, we have
+\begin{equation}
+    = \sum_{i=1}^N \left( \log P(X_i|\theta) * \sum_{c=1}^N q(t_i = c) - \sum_{c=1}^C q(t_i = c) \log \frac{P(X_i, t_i = c|\theta)}{q(t_i = c)} \right)
+\end{equation}
+but $\sum_{c=1}^N q(t_i = c)$ is the summation of the probabilities of all the classes, which is always $1$. As the two inner summations have this element, we can rearrange the equation, giving
+\begin{equation}
+    = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) \left( \log P(X_i|\theta) - \log \frac{P(X_i, t_i = c|\theta)}{q(t_i = c)} \right)
+\end{equation}
+and using the logarithm properties of division of terms, we have
+\begin{equation}
+    = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) \left( \log \frac{P(X_i|\theta) q(t_i = c)}{P(X_i, t_i = c|\theta)} \right)
+\end{equation}
+by some bayesian rules, $P(X_i, t_i = c|\theta) = P(t_i = c|X_i, \theta)P(X_i|\theta)$, replacing the terms, we can simplify the $P(X_i|\theta)$ in the numerator and denominator, giving 
+\begin{equation}
+    = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) \left( \log \frac{q(t_i = c)}{P(t_i = c|X_i, \theta)} \right)
+\end{equation}
+where the inner summation is exactly the Kullback-Leibler Divergence $\mathcal{KL}\left(q(t_i||P(t_i|X_i, \theta)\right)$. Our final equation is
+\begin{equation}
+    gap = \sum_{i=1}^N \mathcal{KL}\left(q(t_i||P(t_i|X_i, \theta)\right)
+\end{equation}
+As we want to maximize the lower bound $\mathcal{L}$, we want to minimize the difference gived by the first gap equation, which means minimize the summation of the Kullback-Leibler Divergence.
 \end{document}
