@@ -547,4 +547,32 @@ and for $t = 2$
     = \frac{(1- \alpha) \gamma}{(1 - \alpha) \gamma + (1 - \beta)(1 - \gamma)} = \frac{0.5*0.5}{0.5*0.5 + 0.5*0.5} = 0.5
 \end{equation}
 
+\section{Class 20 - M step example}
+Following the example, we have $N_1 = 30, N_2 = 20$, $\alpha_0 = \beta_0 = \gamma_0 = 0.5$, $P(x_i) = \gamma P_1(x_i) + (1 - \gamma)P_2(x_i)$, the Table \ref{tab:EM_ex} with the probabilities, and we discover in E step that
+\begin{equation}
+    q(t_i = 1) = P(t_i = 1|x_i) = \begin{cases}
+        1, & x_i = 1 \\
+        0.5, & x_i = 2\\
+        0, & x_i = 3\\ 
+    \end{cases}
+    \label{eq:cases_EM}
+\end{equation}
+and $q(t_i = 2) = 1 - q(t_i = 1)$. By definition, we want a maximization with 
+\begin{equation}
+    \max_{\alpha, \beta, \gamma} \sum_{i=1}^N \mathbb{E}_{q(t_i)} \log p(x_i|t_i)p(t_i) = \sum_{i=1}^N q(t_i = 1) \log(p(x_i|t_i = 1))\gamma + \sum_{i=1}^N q(t_i = 2) \log(p_2(x_i))(1 - \gamma)
+\end{equation}
+Changing the constants by the values, we have
+\begin{equation}
+    = 30 P(t_i = 1|x_i = 1) \log(\alpha)\gamma + 20*0.5 \log(1 - \alpha)\gamma + 60*0*\log0 + 20*0.5 \log(1 - \beta)(1 - \gamma) + 60*1*\log(\beta)(1 - \gamma)
+\end{equation}
+as $P(t_i = 1|x_i = 1) = 1$ and other terms zeroed, we have
+\begin{equation}
+    30 \log\alpha + 1 \log(1 - \alpha) + const(\alpha)
+\end{equation}
+which is the problem that we want to maximize. Using the gradient (deriving the logs), we have
+\begin{equation}
+    30\frac{1}{\alpha} + 10\frac{1*(-1)}{1 - \alpha} = 0 \rightarrow \frac{30}{\alpha} = \frac{10}{1 - \alpha} \rightarrow 30 - 30\alpha = 10\alpha \rightarrow 40\alpha = 30 \rightarrow \alpha = \frac{3}{4} = 0.75
+\end{equation}
+and finally, $\beta = \frac{6}{7}$ and $\gamma = \frac{4}{11}$.
+
 \end{document}
