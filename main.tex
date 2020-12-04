@@ -515,4 +515,36 @@ M-step
     \theta^{k+1} = arg \max_\theta \mathbb{E}_{q^{k+1}} \log P(X, T|\theta^k)
 \end{equation}
 
+\section{Class 19 - E step example}
+Imagine a dataset with three values: $1, 2,$ and $3$, with $N_1 = 30, N_2 = 20$, and $N_3 = 60$, respectively. Threre are two gaussians to fit the data, parametrized by the parameters $\alpha$, $\beta$, and $\gamma$. The probability function is $P(x_i) = \gamma P_1(x_i) + (1 - \gamma)P_2(x_i)$. The following table gives the probability distribution to each value accordingly to each $P_n$:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+         &  $1$ & $2$ & $3$ \\
+         $P_1$ & $\alpha$ & $1 - \alpha$ & $0$ \\
+         $P_1$ & $0$ & $1 - \beta$ & $\beta$ 
+    \end{tabular}
+    \caption{Probabilities to sample the values $1, 2$, and $3$ with the probability models $P_1$ and $P_2$.}
+    \label{tab:EM_ex}
+\end{table}
+where $\alpha_0 = \beta_0 = \gamma_0 = 0.5$. Using the latent variable $t$ we have
+\begin{equation}
+    P(t_i = 1) = \gamma 
+\end{equation}
+\begin{equation}
+    P(x_i|t_i = 2) = P_2(x_i)
+\end{equation}
+By definition, $q(t_i) = P(t_i = c|x_i)$, and $P(X|Y) = \frac{P(Y|X)P(Y)}{P(X)}$. Changing the terms of this equation by the values given by the example, we have
+\begin{equation}
+    q(t_i = 1) = P(t_i = 1|x_i = 1) = \frac{P(x_i = 1|t_i = 1)P(t_i = 1)}{P(x_i = 1|t_i = 1)P(t_i = 1) + P(x_i = 2|t_i = 2)P(t_i = 2)}
+\end{equation}
+looking for Table \ref{tab:EM_ex}, we have
+\begin{equation}
+    = \frac{\alpha \gamma}{\alpha \gamma + 0(1 - \alpha)} = 1
+\end{equation}
+and for $t = 2$
+\begin{equation}
+    = \frac{(1- \alpha) \gamma}{(1 - \alpha) \gamma + (1 - \beta)(1 - \gamma)} = \frac{0.5*0.5}{0.5*0.5 + 0.5*0.5} = 0.5
+\end{equation}
+
 \end{document}
