@@ -490,4 +490,29 @@ As we want to maximize the lower bound $\mathcal{L}$, we want to minimize the di
 
 \section{Class 18 - M Step}
 
+\section{Class 18 - M Step}
+We want to maximize the lower-bound log likelihood, as discussed in class 16 after rebuild the equation in a Jensen's inequality, with the following equation
+\begin{equation}
+    \mathcal{L}(\theta, q) = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) log \frac{P(X_i, t_i = c|\theta)}{q(t_i = c)}
+\end{equation}
+but now, in terms of $\theta$. With the division logarithm property, we can transform to the following equation to
+\begin{equation}
+    \mathcal{L}(\theta, q) = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) log P(X_i, t_i = c|\theta) - \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) log q(t_i = c)
+\end{equation}
+but, as we can maximize in terms of $\theta$, and the second term haven't $\theta$, we can throw this term away, which results in
+\begin{equation}
+    \mathbb{E}_q \log P(X, T|\theta) + const
+\end{equation}
+which usually is a concave function, so it is easy to maximize. The goal in the M-step is
+
+\subsection{Summarising Expectation Maximization}
+E-step
+\begin{equation}
+    q^{k+1} = arg \min_q \mathcal{KL}[q(T) || P(T|X, \theta^k)] \Leftrightarrow q^{k+1}(t_i) = p(t_i|x_i, \theta^k)
+\end{equation}
+M-step
+\begin{equation}
+    \theta^{k+1} = arg \max_\theta \mathbb{E}_{q^{k+1}} \log P(X, T|\theta^k)
+\end{equation}
+
 \end{document}
