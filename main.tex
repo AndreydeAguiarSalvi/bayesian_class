@@ -575,4 +575,42 @@ which is the problem that we want to maximize. Using the gradient (deriving the 
 \end{equation}
 and finally, $\beta = \frac{6}{7}$ and $\gamma = \frac{4}{11}$.
 
+\section{Class 22 - General EM for GMM}
+\begin{enumerate}
+    \item E-step \begin{itemize}
+        \item EM: for each point, compute $q(t_i) = p(t_i|x_i, \theta)$
+        \item GMM: equally, compute $p(t_i|x_i, \theta)$
+    \end{itemize}
+    \item M-step \begin{itemize}
+        \item EM: update parameters to maximize $\max_\theta \mathbb{E}_q \log p(X, T|\theta)$
+        \item GMM: update Gaussian parameters to fit points assigned to them $\mu_i = \frac{\sum_i p(t_i = 1| x_i, \theta)x_i}{\sum_i p(t_i = 1| x_i, \theta)}$. \Eg
+        \begin{equation}
+            \max_\theta \mathbb{E}_q \log p(X, T|\theta) = \sum_{i=1}^N \sum_{c=1}^C q(t_i = c) \log \left(
+            \frac{1}{z} e^{-\frac{(x_i-\mu_c)^2}{2\sigma_c^2}}\pi_c
+            \right)
+        \end{equation}
+        \begin{equation}
+            = \sum_{i=1}^N \sum_{c=1}^C q(t_i = c) \log(\frac{\pi_c}{z}) - -\frac{(x_i-\mu_c)^2}{2\sigma_c^2}
+        \end{equation}
+        and deriving it in respect to the first Gaussian, which uses $\mu_1$, we have
+        \begin{equation}
+            \frac{\partial...}{\partial_{\mu_c}} = \sum_{i=1}^N q(t_i = 1) (0 - \frac{2(x_i - \mu_{i=1})(-1)}{2\sigma_{c=1}^2})
+        \end{equation}
+        multiplying the term by $\sigma_{c=1}^2$ to eliminate the term in the denominator, and setting equal to zero (once time the lower bound log likelihood is a concave curve, and the derivative zero is in the highest point), we have
+        \begin{equation}
+            = \sum_{i=1}^N q(t_i = 1)x_i - \sum_{i=1}^N q(t_i = 1)\mu_{i=1} = 0
+        \end{equation}
+        \begin{equation}
+            \mu_1 = \frac{\sum_{i=1}^N q(t_i = 1)x_i}{\sum_{i=1}^N q(t_i = 1)}
+        \end{equation}
+        and consequently, 
+        \begin{equation}
+            \sigma_c^2 = \frac{\sum_{i=1}^N q(t_i = c)(x_i-\mu_c)}{\sum_{i=1}^N q(t_i = c)}
+        \end{equation}
+        where $\mu_c$ here is the new $\mu$ computed by the previous one equation. For the gaussian ponder $\pi$, we have to ensure that $\pi_c > 0$ and $\sum_{c=1}^C \pi_c = 1$. We can update $\pi$ with the following equation
+        \begin{equation}
+            \pi_c = \frac{\sum_{i=1}^N q(t_i = c)}{N}
+        \end{equation}
+    \end{itemize}
+\end{enumerate}
 \end{document}
