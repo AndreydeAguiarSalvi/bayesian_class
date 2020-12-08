@@ -31,7 +31,7 @@ Three principles:
 	
 \subsection{Conditional Probability}
 \begin{equation}
-    P(X|Y) = \frac{P(X, Y)}{Y(P)}
+    P(X|Y) = \frac{P(X, Y)}{P(Y)}
 \end{equation}
 where $P(X, Y)$ = joint probability and $P(Y)$ = marginal probability.
 		
@@ -705,5 +705,22 @@ as $\frac{1}{Z}$ not depends of $t_i$, and with the logarithm property of log mu
     = \sum_i \log(\frac{1}{Z}) + \sum_i \mathbb{E}_{q(t_i)} \log\left(exp\left(-\frac{(x - \mathcal{W}t_i - b)^2}{2\sigma^2}\right) exp\left(-\frac{t_i^2}{2}\right) \right)
 \end{equation}
 where all the log term is similar to $at_i^2 + ct_i + d$.
+
+\section{Class 27 - Inference Approximation}
+In some cases, the we can approximate a distribution by another, as the marginal probability can be hard to compute. We can, \eg, train a neural network to learn a distribution, switching the marginal probability by a constant normalization
+\begin{equation}
+    p^*(z) = p(z|X) = \frac{p(X|z)p(Z)}{p(X)} = \frac{\hat{p}(Z)}{Z}
+\end{equation}
+In this manner, we need to minimize the $\mathcal{KL}$-Divergence
+\begin{equation}
+    \mathcal{KL}[q(z)||\frac{\hat{p}(Z)}{Z}] = \int q(z)\log\left(\frac{q(z)}{\hat{p}(Z)/Z}\right)dz = \int q(z)\log\left(\frac{q(z)}{\hat{p}(Z)}\right)dz + \int q(z) \log Z dz 
+\end{equation}
+\begin{equation}
+    \mathcal{KL}[q(z)||\hat{p}(Z)] + \log Z
+\end{equation}
+as $\log Z$ is a constant, we have
+\begin{equation}
+    \mathcal{KL}[q(z)||\hat{p}(Z)] \rightarrow \min_z
+\end{equation}
 
 \end{document}
