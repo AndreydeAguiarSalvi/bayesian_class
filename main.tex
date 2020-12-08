@@ -684,8 +684,26 @@ where $\sigma_i$ is a random noise with $\epsilon_i ~ \mathcal{N}(0, \Sigma$. pr
 \end{equation}
 As we have continuous variables, we need the Marginalization to train the model
 \begin{equation}
-    \max_\theta p(X|\theta) = \prod_{i=1}^N p(x_i|\theta) = \prod_{i=1}^N \int p(x_i|t_i, \theta)p(i_i)dt_i
+    \max_\theta p(X|\theta) = \prod_{i=1}^N p(x_i|\theta) = \prod_{i=1}^N \int p(x_i|t_i, \theta)p(t_i)dt_i
 \end{equation}
 which is intractable, as the integral means summing all the points. Applying a conjugacy in the integral, resulting in $\mathcal{N}(\mu_i, \Sigma_i)$, we can treat this problem training with Expectation Maximization.
+
+\section{Class 26 - EM for PPCA}
+\textbf{E-step}
+\begin{equation}
+    q(t_i) = p(t_i|x_i, \theta) = \frac{p(x_i|t_i, \theta)p(t_i)}{Z} = \mathcal{N}(\hat{\mu_i}), \hat{\Sigma_i}
+\end{equation}
+\textbf{M-step}
+\begin{equation}
+    \max_\theta \mathbb{E}_{q(T)} \sum_i \log\left(p(x_i|t_i, \theta)p(t_i) \right) = \sum_i \mathbb{E}_{q(t_i)} \log\left( \frac{1}{Z}e^{...}e^{...} \right)
+\end{equation}
+as $\frac{1}{Z}$ not depends of $t_i$, and with the logarithm property of log multiplication is equal to the sum of the logs, we rewrite to
+\begin{equation}
+    = \sum_i \log(\frac{1}{Z}) + \sum_i \mathbb{E}_{q(t_i)} \log\left(e^{...}e^{...} \right)
+\end{equation}
+\begin{equation}
+    = \sum_i \log(\frac{1}{Z}) + \sum_i \mathbb{E}_{q(t_i)} \log\left(exp\left(-\frac{(x - \mathcal{W}t_i - b)^2}{2\sigma^2}\right) exp\left(-\frac{t_i^2}{2}\right) \right)
+\end{equation}
+where all the log term is similar to $at_i^2 + ct_i + d$.
 
 \end{document}
