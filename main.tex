@@ -613,4 +613,38 @@ and finally, $\beta = \frac{6}{7}$ and $\gamma = \frac{4}{11}$.
         \end{equation}
     \end{itemize}
 \end{enumerate}
+
+\section{Class 23}
+\subsection{K-Means from GMM Perspective}
+In GMM, if we fix the covariances to be identical, $\Sigma_c = \mathcal{I}$, and fix the weights of each gaussian to be uniform, $\pi_c = \frac{1}{N Gaussians}$, thus, the conditional probability is
+\begin{equation}
+    p(x_i|t_i = c, \theta) = \frac{1}{Z} e^{-0.5||x_i - \mu_c||^2}
+\end{equation}
+which is a weighted euclidean distance between the data and the centroid. Thus, we prove that the K-Means is a special case of the GMM.
+
+\subsection{K-Means from EM perspective}
+The $q(t)$ is approximated by a delta function, which binaries the probabilities
+\begin{equation}
+    q^{k+1}(t_i) = \begin{cases}
+    1, & t_i = c_i\\
+    0, & otherwise\\
+    \end{cases}
+\end{equation}
+then, the \textbf{E-step} turns
+\begin{equation}
+    c_i = arg \max_c p(t_i = c|x_i, \theta)
+\end{equation}
+where the probability $p(t_i = c|x_i, \theta)$ is 
+\begin{equation}
+    p(t_i = c|x_i, \theta) = \frac{1}{Z}p(x_i|t_i, \theta)p(t_i\theta)
+\end{equation}
+\begin{equation}
+    = \frac{1}{Z}e^{-0.5||x_i - \mu_c||^2}\pi_c
+\end{equation}
+as $\frac{1}{Z}$ and $\pi_c$ does not depend on $c$, we can throw it away. Then, the \textbf{E-step} becomes to
+\begin{equation}
+    c_i = arg \max_c p(t_i = c|x_i, \theta) = arg \min_c ||x_i - \mu_c||^2
+\end{equation}
+which is the Euclidean distance used in K-Means.
+
 \end{document}
