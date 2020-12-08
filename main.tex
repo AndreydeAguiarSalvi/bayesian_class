@@ -723,4 +723,52 @@ as $\log Z$ is a constant, we have
     \mathcal{KL}[q(z)||\hat{p}(Z)] \rightarrow \min_z
 \end{equation}
 
+\section{Class 28 - Mean Field}
+\begin{enumerate}
+    \item Select a family of distributions $\mathcal{Q}$ as a variational inference
+    \begin{equation}
+        \mathcal{Q} = {q|q(z) = \prod_{i=1}^d q_i(z)}
+    \end{equation}
+    which is a set of all distributions that have factorized over the dimensions of the latent variables.
+    \item optimize to find the best approximation $q(Z)$ of $\hat{p}(Z)$
+    \begin{equation}
+        \mathcal{KL}[q(z)||\hat{p}(Z)] \rightarrow \min_{q \in \mathcal{Q}}
+    \end{equation}
+\end{enumerate}
+\Eg, factorizing a distribution of two variables to a multiplication of two distributions: $p^*(z_1, z_2) \approx q_1(z_1)q_2(z_2)$, where $p^*$ is the real distribution. Imaging that $p^*(z_1, z_2) = \mathcal{N}(0, \Sigma)$. Thus, we have $q_1(z_1)q_2(z_2) = \mathcal{N}(0, \begin{pmatrix}
+    \sigma_1^2 & 0\\
+    0 & \sigma_2^2
+\end{pmatrix})$. Then, optimize the $\mathcal{KL}$-Divergence for each distribution,
+\begin{equation}
+    \mathcal{KL}(\prod_i^d q_i||p^*) \rightarrow \min_q
+\end{equation}
+and the $\mathcal{KL}$-Divergence is
+\begin{equation}
+    = \int\prod_i^d \log\left(\frac{\prod_i^d q_i}{p^*} \right)dz = \sum_i^d \int\prod_j^d \log(q_i)dz - \int\prod_j^d \log(p^*)dz
+\end{equation}
+where, for a specific distribution $k$, we eliminate the first summation and generate 
+\begin{equation}
+    = \int\prod_j^d \log(q_k)dz + \sum_{i\neq k}^d \int\prod_j^d \log(q_i)dz - \int\prod_j^d \log(p^*)dz
+\end{equation}
+but, some therms are constants in relation to $q(z)$ and its respective integrals are equal to $1$. \Eg, the first integral can be decomposed to
+\begin{equation}
+    \int\prod_j^d \log(q_k)dz = \int q_k\log(q_k)\left[\int\prod_{j\neq k}^d \log(q_j)dz_{\neq k} \right]dz_k = \int q_k\log(q_k) dz_k
+\end{equation}
+The second integral not depends on $k$, and thus it is constant. Rewriting, we have
+\begin{equation}
+    \int\prod_i^d \log\left(\frac{\prod_i^d q_i}{p^*} \right)dz = \int q_k\log(q_k) dz_k - \int q_k \left[\prod_{j\neq k}^d q_j \log(p^*) dz_{\neq k}\right]dz_k
+\end{equation}
+grouping the similar term $q_k$, we have
+\begin{equation}
+    = \int q_k \left[\log(q_k) dz_k - \int \prod_{j\neq k}^d q_j \log(p^*) dz_{\neq k}\right] dz_k
+\end{equation}
+and the term with the productory is the expectation, $h(z_k) = \mathbb{E}_{q_{-k}}\log p^* = prod_{j\neq k}^d q_j \log(p^*) dz_{\neq k}$. If we rewrite $h(z)$ as $t(z_k) = \frac{e^{h(z_k)}}{\int e^{h(z_k)}dz_k}$, we can rewrite the last equation to a $\mathcal{KL}$-Divergence
+\begin{equation}
+    = \int q_k \log\left(\frac{q_k}{t}\right)dz_k + const = \mathcal{KL}(q_k||t) \rightarrow \min
+\end{equation}
+as we want to zero the $\mathcal{KL}$-Divergence, then
+\begin{equation}
+    q_k = t \rightarrow \log q_k = \mathbb{E}_{q_{-k}} \log p^* + const
+\end{equation}
+
 \end{document}
