@@ -647,4 +647,23 @@ as $\frac{1}{Z}$ and $\pi_c$ does not depend on $c$, we can throw it away. Then,
 \end{equation}
 which is the Euclidean distance used in K-Means.
 
+\section{Class 24}
+\subsection{K-Means from EM perspective}
+The \textbf{M-step} is
+\begin{equation}
+    \max_\mu \sum_{i=1}^N \mathbb{E}_{q(t_i)} \log(p(x_i, t_i|\mu))
+\end{equation}
+where $\mu$ is relative to the parameters from the original equation. As $q(t_i)$ is restricted, as the equation bellow,
+\begin{equation}
+    q(t_i) = \begin{cases}
+    1, & t_i = c_i^*\\
+    0, & t_i \neq c_i^*\\
+    \end{cases}
+\end{equation}
+and do not contribute in the equations, we can rewrite the $\mu$ update to
+\begin{equation}
+    \mu_c = \frac{\sum_{i=1}^N q(t_i = c)x_i}{\sum_{i=1}^N q(t_i = c)} = \frac{\sum_{i: c_i^*=c_i}^N x_i}{N i: c_i^*=c_i }
+\end{equation}
+which is exactly the mean of the classified points, as the K-Means do.
+
 \end{document}
