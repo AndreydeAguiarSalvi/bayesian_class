@@ -781,5 +781,35 @@ In EM, we want to maximize the $\mathcal{L}(\theta, q)$, which is equal to $\mat
     \item Crisp EM: $T = T_{MP}, \theta = \theta_{MP}$ with estimate the latent variable and the parameter with point estimate. It is similar to a K-Means estimation.
 \end{itemize}
 
+\section{Class 32 - Dirichlet Distribution}
+It is a distribution which can assume different shapes
+\begin{equation}
+    Dir(\theta, \alpha) = \frac{1}{\beta(\alpha)} \prod_{k=1}^K \theta_k^{\alpha_k-1}
+\end{equation}
+as $\alpha$ changes. This distribution have the following attributes:
+\begin{itemize}
+    \item $\mathbb{E} \theta_i = \frac{\alpha_i}{\alpha_0}$
+    \item $Cov(\theta_i, \theta_j) = \frac{\alpha_i\alpha_0[i = j]-\alpha_i\alpha_j}{\alpha_0 ^2 (\alpha_0 +1)}$
+    \item $\alpha_0 = \sum_{k=1}^K \alpha_k$
+\end{itemize}
+Looking for this properties, we can conclude that the $\beta$ distribution is a special case of the Dirichlet Distribution with only 2 dimensions.
+
+The Dirichlet Distribution prior is conjugate to the Multinomial Likelihood. Remembering, the prior ($P(\theta)$) is conjugate to the likelihood ($P(X|\theta)$) if the prior and the posterior ($P(\theta|X)$) are both in the same family of distribution. The Multinomial Likelihood is given by
+\begin{equation}
+    P(X|\theta) = \frac{n!}{x_1!...x_k!}\theta_1^{x_1}...\theta_k^{x_k}
+\end{equation}
+while the Dirichlet prior $p(\theta)$ was gived by the previous equation. Thus, the posterior probability is
+\begin{equation}
+    p(\theta|X) \propto \prod_{k=1}^K \theta_k^{\alpha_k + x_k -1}
+\end{equation}
+which is a $\beta$ distribution with a normalization constant. Thus, we have
+\begin{equation}
+    p(\theta|X) = Dir\left(\theta| \begin{pmatrix}
+            ...\\
+            \alpha_k + x_k\\
+            ...
+        \end{pmatrix}
+    \right)
+\end{equation}
 
 \end{document}
