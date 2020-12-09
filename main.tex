@@ -771,4 +771,15 @@ as we want to zero the $\mathcal{KL}$-Divergence, then
     q_k = t \rightarrow \log q_k = \mathbb{E}_{q_{-k}} \log p^* + const
 \end{equation}
 
+\section{Class 30 - Variational EM Review}
+In EM, we want to maximize the $\mathcal{L}(\theta, q)$, which is equal to $\mathbb{E}_{q(T)}\log\frac{p(X, T|\theta)}{q(T)}$. The $\mathcal{L}(\theta, q)$ is the variational lower bound of the original marginal likelihood $\log p(X|\theta)$. In \textbf{E-step}, we want to minimize the $\mathcal{KL}$-Divergence, equaling $q(T)$ to the Full Posterior $p(T|X, \theta)$. The EM becomes to Variational EM if we want to minimize $q\in\mathcal{Q}$. Based on the problem, we can perform different inferences, described below. The first one approaches are more accurately and slow, while the latter ones are less precise but more faster.
+\begin{itemize}
+    \item Full inference: $p(T, \theta|X)$ is the precise inference, however, sometimes it is not possible.
+    \item Mean field: $q(T)q(\theta)\approx p(T, \theta|X)$
+    \item EM Algorithm: $q(T), \theta = \theta_{MP}$ estimates only one point of $\theta$
+    \item Variational EM: $q_1(T_1)...q_d(T_d), \theta = \theta_{MP}$ factorizes the latent variables for each dimension
+    \item Crisp EM: $T = T_{MP}, \theta = \theta_{MP}$ with estimate the latent variable and the parameter with point estimate. It is similar to a K-Means estimation.
+\end{itemize}
+
+
 \end{document}
