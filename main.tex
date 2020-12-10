@@ -831,4 +831,55 @@ Thus, this problem contains
     \item Unknown $\Theta$ latent variables, a distribution over topics for each document
 \end{itemize}
 
+\section{Class 36 - LDA M-step}
+To train the LDA with EM, we have the two steps:
+\begin{itemize}
+    \item \textbf{E-step}, with \begin{equation}
+        \mathcal{KL}(q(\theta)q(Z)||p(\theta, Z|W)) \rightarrow \min_{q(\theta),q(Z)}
+    \end{equation}
+    \item \textbf{M-step}, with \begin{equation}
+        \mathbb{E}_{q(\theta)q(Z)} \log p(\theta, Z, W) \rightarrow \max_{\Phi}
+    \end{equation}
+\end{itemize}
+where the probability $p(\theta, Z, W)$ is given by
+\begin{equation}
+    p(\theta, Z, W) = \sum_{d=1}^D \left[ 
+    \sum_{t=1}^T(\alpha_t - 1)\log\theta_{dt} + \sum_{n=1}^{N_d} \sum_{t=1}^T [z_{dn} = t] (\log\theta_{dt}\log\Phi_{tw_{dn}})
+    \right]
+\end{equation}
+as the most of the terms has no $\Phi$, thus is constant, we can rewrite the expectation to 
+\begin{equation}
+    \mathbb{E}_{q(\theta)q(Z)} \log p(\theta, Z, W) = \mathbb{E}_{q(\theta)q(Z)} \sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T [z_{dn} = t] \log\Phi_{tw_{dn}} + const \rightarrow \max_\Phi
+\end{equation}
+As $\Phi$ is a probability, we need to ensure two constraints: that $\Phi_{tw} \geq 0$, which is always true due to the logarithm; and $\sum \Phi_{tw} = 1$. To ensure this second constraint, we need to use the Lagrangian Multiplier, which is a strategy for finding the local maxima and minima of a function subject to equality constraints. This Lagrangian is given by
+\begin{equation}
+    \mathbb{L} = \mathbb{E}_{q(\theta)q(Z)} \sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T [z_{dn} = t] \log\Phi_{tw_{dn}} + 
+    \sum_{t=1}^T \lambda_t(\sum_w\Phi_{tw} -1)
+\end{equation}
+Simplifying this equation, we have
+\begin{equation}
+    = \sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T \gamma_{dn}^t \log\Phi_{tw_{dn}} + 
+    \sum_{t=1}^T \lambda_t(\sum_w\Phi_{tw} -1)
+\end{equation}
+To maximize, we use the derivatives equalized to zero, given by
+\begin{equation}
+    \frac{\partial\mathbb{L}}{\Phi_{tw}} = \sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T [w_{dn}=w]\gamma_{dn}^t \frac{1}{tw_{dn}} + \lambda_t = 0
+\end{equation}
+and thus, we have that $\Phi$ is
+\begin{equation}
+    \Phi_{tw} = \frac{\sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T [w_{dn}=w]\gamma_{dn}^t}{-\lambda_t}
+\end{equation}
+which even depends of $\lambda$. As the summation of all the $w$'s is one, by our first constraint, thus
+\begin{equation}
+    \sum_{w}\Phi_{tw} = \sum_{w} \frac{\sum_{d=1}^D \sum_{n=1}^{N_d} \sum_{t=1}^T [w_{dn}=w]\gamma_{dn}^t}{-\lambda_t} = 1
+\end{equation}
+isolating $\lambda$, we have
+\begin{equation}
+    \lambda_t = \sum_{w, d, n, t} [w_{dn}=w] \gamma_{dn}^t
+\end{equation}
+Plugging $\gamma$ in the $\Phi$ equation, we have
+\begin{equation}
+    \Phi_{tw} = \frac{\sum_{d, n, t} [w_{dn}=w] \gamma_{dn}^t}{\sum_{w, d, n, t} [w_{dn}=w] \gamma_{dn}^t}
+\end{equation}
+
 \end{document}
