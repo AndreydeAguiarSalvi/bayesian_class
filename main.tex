@@ -882,4 +882,30 @@ Plugging $\gamma$ in the $\Phi$ equation, we have
     \Phi_{tw} = \frac{\sum_{d, n, t} [w_{dn}=w] \gamma_{dn}^t}{\sum_{w, d, n, t} [w_{dn}=w] \gamma_{dn}^t}
 \end{equation}
 
+\section{Class 37 - Extensions of LDA}
+Interpreting the LDA:
+\begin{itemize}
+    \item $p(W, Z, \Theta) = \prod_{d=1}^D p(\theta_d) \prod_{n=1}^{N_d} p(z_{dn}|\theta_d) p(w_{dn}|z_{dn})$
+    \item $p(\theta_d) \approx Dir(\alpha)$
+    \item if $\alpha$ is higher, means that are more topics for each document
+    \item if $\alpha$ is smaller, means that are less topics for each document
+    \item $\alpha$ can be selected as $p(W|\alpha) \rightarrow \alpha$
+\end{itemize}
+If we have a sparse prior on $\Phi$, we can work around this problem with
+\begin{equation}
+    p(W, Z, \Theta, \Phi) = \prod_{t=1}^T p(\Phi_t) p(W, Z, \Theta|\Phi)
+\end{equation}
+where $p(\Phi_t) \approx Dir(\beta)$. We also can compute a \textbf{Topic Correlation} as
+\begin{equation}
+    p(\theta_d) \approx P( \mathcal{N}(\mu, \Sigma) )
+\end{equation}
+And finally, we can use LDA as a \textbf{Dynamic Topic Model}. \Eg where some word is very used at some time and it use decreases along the time, measured as $\tau$. We can do this with the equations bellow
+\begin{equation}
+    p(B_{t\bullet}^{\tau+1}|B_{t\bullet}^{\tau}) \approx \mathcal{N}(B_{t\bullet}^{\tau}, \sigma^2\mathcal{I})
+\end{equation}
+and
+\begin{equation}
+    \Phi_{t\bullet}^{\tau+1} = Softmax[B_{t\bullet}^{\tau}]
+\end{equation}
+
 \end{document}
