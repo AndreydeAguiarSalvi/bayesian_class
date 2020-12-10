@@ -812,4 +812,23 @@ which is a $\beta$ distribution with a normalization constant. Thus, we have
     \right)
 \end{equation}
 
+\section{Class 33 - Latent Dirichlet Allocation (LDA) Model}
+We can use the Dirichlet distribution to select words in a topic based problem. For instante, a document is a set of topics, where each topics is a set of words, each word with some probability in the correspondent topic. If we create a model $\Theta$, as a Bayesian Network, to select topics as a latent variable $z$, which impacts in the selection of the words $w$. Thus, we have
+\begin{equation}
+    p(W, Z, \Theta) = \prod_{d=1}^D p(\theta_d) \prod_{n=1}^{N_d} p(z_{dn}|\theta_d) p(w_{dn}|z_{dn})
+\end{equation}
+where \begin{itemize}
+    \item $\prod_{d=1}^D$ to iterate over each document from the dataset.
+    \item $p(\theta_d)$ to generate the $d$-th topic probability. We can compute this probability by $p(\theta_d \approx Dir(\theta_d, \alpha)$.
+    \item $p(z_{dn}|\theta_d)$ to select a topic based on the latent variable. We can compute this probability as $p(z_{dn}|\theta_d) = \theta_{dz_{dn}}$.
+    \item $p(w_{dn}|z_{dn})$ to select a word based on the topic. We can compute this probability with $p(w_{dn}|z_{dn}) = \Phi_{z_{dn}w_{dn}}$, which is a table with the probabilities.
+\end{itemize}
+Thus, this problem contains
+\begin{itemize}
+    \item Known $W$ data
+    \item Unknown $\Phi$ parameters, with the distribution over words for each topic
+    \item Unknown $Z$ latent variables, topic of each word
+    \item Unknown $\Theta$ latent variables, a distribution over topics for each document
+\end{itemize}
+
 \end{document}
