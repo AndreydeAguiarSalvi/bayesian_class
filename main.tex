@@ -908,4 +908,15 @@ and
     \Phi_{t\bullet}^{\tau+1} = Softmax[B_{t\bullet}^{\tau}]
 \end{equation}
 
+\section{Class 39 - Sampling from 1D distributions}
+\begin{itemize}
+    \item Discrete Distributions: each category have its own probability, which all summed is one. We can sampling by, generating a number $r \approx \mathcal{U}[0, 1]$ and choosing the category where the sampled value falls inside the range of respective category.
+    \item Continuous Distributions: we cam sample, \eg using the Central Limit Theorem. Exemplifying, if we have a Gaussian $\mathcal{N(1, 0)}$, we can compute 
+    \begin{equation}
+        z = \sum_{i=1}^12 x_i - 6, \\x_i \approx \mathcal{U}[0, 1]
+    \end{equation}
+    where $12$ is a chosen number of points and $6$ if the half of the number of points. Thus, $p(z) \approx \mathcal{N(0, 1)}$.
+    \item Continuous Unknown Distribution: with we have a real and unknown distribution $p(x)$, we first choose a upper-bound distribution $q(x)$ where $p(x) \leq 2q(x)$. Thus, we need to sample the points $\title{x} \approx q(x)$ and $y \approx \mathcal{U}[0, 2q(\title{x})]$. Then, we accept $\title{x}$ as a point sampled from $p()$ with probability $\frac{p(x)}{2q(x)}$, if $y \leq p(x)$. If we want to ensure a more probability of $p$ sampling, we can use a normalization constant $M$, with $p(x) \leq Mq(x)$, and thus only $\frac{1}{M}$ of points will be acceptable.
+\end{itemize}   
+
 \end{document}
