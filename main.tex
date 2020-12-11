@@ -489,8 +489,6 @@ where the inner summation is exactly the Kullback-Leibler Divergence $\mathcal{K
 As we want to maximize the lower bound $\mathcal{L}$, we want to minimize the difference gived by the first gap equation, which means minimize the summation of the Kullback-Leibler Divergence.
 
 \section{Class 18 - M Step}
-
-\section{Class 18 - M Step}
 We want to maximize the lower-bound log likelihood, as discussed in class 16 after rebuild the equation in a Jensen's inequality, with the following equation
 \begin{equation}
     \mathcal{L}(\theta, q) = \sum_{i=1}^N \sum_{c=1}^N q(t_i = c) log \frac{P(X_i, t_i = c|\theta)}{q(t_i = c)}
@@ -882,6 +880,7 @@ Plugging $\gamma$ in the $\Phi$ equation, we have
     \Phi_{tw} = \frac{\sum_{d, n, t} [w_{dn}=w] \gamma_{dn}^t}{\sum_{w, d, n, t} [w_{dn}=w] \gamma_{dn}^t}
 \end{equation}
 
+
 \section{Class 37 - Extensions of LDA}
 Interpreting the LDA:
 \begin{itemize}
@@ -911,12 +910,21 @@ and
 \section{Class 39 - Sampling from 1D distributions}
 \begin{itemize}
     \item Discrete Distributions: each category have its own probability, which all summed is one. We can sampling by, generating a number $r \approx \mathcal{U}[0, 1]$ and choosing the category where the sampled value falls inside the range of respective category.
-    \item Continuous Distributions: we cam sample, \eg using the Central Limit Theorem. Exemplifying, if we have a Gaussian $\mathcal{N(1, 0)}$, we can compute 
+    \item Continuous Distributions: we cam sample, \eg using the Central Limit Theorem. Exemplifying, if we have a Gaussian $\mathcal{N}(0, 1)$, we can compute 
     \begin{equation}
         z = \sum_{i=1}^12 x_i - 6, \\x_i \approx \mathcal{U}[0, 1]
     \end{equation}
-    where $12$ is a chosen number of points and $6$ if the half of the number of points. Thus, $p(z) \approx \mathcal{N(0, 1)}$.
+    where $12$ is a chosen number of points and $6$ if the half of the number of points. Thus, $p(z) \approx \mathcal{N}(0, 1)$.
     \item Continuous Unknown Distribution: with we have a real and unknown distribution $p(x)$, we first choose a upper-bound distribution $q(x)$ where $p(x) \leq 2q(x)$. Thus, we need to sample the points $\title{x} \approx q(x)$ and $y \approx \mathcal{U}[0, 2q(\title{x})]$. Then, we accept $\title{x}$ as a point sampled from $p()$ with probability $\frac{p(x)}{2q(x)}$, if $y \leq p(x)$. If we want to ensure a more probability of $p$ sampling, we can use a normalization constant $M$, with $p(x) \leq Mq(x)$, and thus only $\frac{1}{M}$ of points will be acceptable.
 \end{itemize}   
+
+\section{Final}
+Look at this links to perform our GMM:
+\begin{itemize}
+    \item Sampling from a GMM: \url{https://stats.stackexchange.com/questions/269205/sampling-from-a-multivariate-gaussian-mixture-model}
+    \item Sklearn GMM doc: \url{https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html}
+    \item Sklearn train example: \url{https://scikit-learn.org/0.16/modules/generated/sklearn.mixture.GMM.html}
+    \item Variational GMM: \url{https://scikit-learn.org/stable/modules/mixture.html}
+\end{itemize}
 
 \end{document}
