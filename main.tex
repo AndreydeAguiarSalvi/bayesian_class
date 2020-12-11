@@ -2,6 +2,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage{url}
 \usepackage{tikz} 
+\usetikzlibrary{arrows}
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
 \usepackage{amsmath,amssymb}
 \usepackage[top=2cm,left=2cm,right=2cm,bottom=2cm]{geometry}
 
@@ -917,6 +921,43 @@ and
     where $12$ is a chosen number of points and $6$ if the half of the number of points. Thus, $p(z) \approx \mathcal{N}(0, 1)$.
     \item Continuous Unknown Distribution: with we have a real and unknown distribution $p(x)$, we first choose a upper-bound distribution $q(x)$ where $p(x) \leq 2q(x)$. Thus, we need to sample the points $\title{x} \approx q(x)$ and $y \approx \mathcal{U}[0, 2q(\title{x})]$. Then, we accept $\title{x}$ as a point sampled from $p()$ with probability $\frac{p(x)}{2q(x)}$, if $y \leq p(x)$. If we want to ensure a more probability of $p$ sampling, we can use a normalization constant $M$, with $p(x) \leq Mq(x)$, and thus only $\frac{1}{M}$ of points will be acceptable.
 \end{itemize}   
+
+\section{Class 40 - Markov Chains}
+Markov Chains are a graph probability representation of a problem. As in a graph, it contains states, with edges linking it. Every edge contains a probability. We can use MC to perform sampling in more complicated probability functions.
+
+\Eg with the MC bellow, in the first step, we start on Start, which move us to R. Thus, in the second step, we have $30\%$ of probability to keep in R and $70\%$ to go to L. What is the probability of stay in state R in the third step?
+
+% \begin{tikzpicture}[main/.style = {draw, circle}, node distance=3cm]  
+
+\begin{figure}
+    \centering
+    
+    \begin{tikzpicture}[->,>=stealth',auto,node distance=3cm,
+        thick,main node/.style={circle,draw,font=\sffamily\Large\bfseries}]
+    
+        \node[main node] (1) {$Start$}; 
+        \node[main node] (2) [above left of=1] {$L$}; 
+        \node[main node] (3) [above right of=1] {$R$};
+        
+        \draw[->] (1) -- node {1.0} (2);
+        \draw (3) to [in=-40,out=220,looseness=5,min distance=30mm]node[above]{0.5} (3);
+        \draw (2) to [in=40,out=100,looseness=5,min distance=30mm]node[above]{0.3} (2);
+        \draw (2) to [in=170,out=10,looseness=2,min distance=2mm]node[above]{0.7} (3);
+        \draw (3) to [in=350,out=200,looseness=1,min distance=3mm]node[above]{0.5} (2);
+    \end{tikzpicture} 
+    
+    \caption{Example of Marcov Chain}
+\end{figure}
+
+This probability is $p(x^3) = p(x^3|x^2 = L)p(x^2 = L) + p(x^3|x^2 = R)p(x^2 = R) = 0.3^2 + 0.7*0.5$. In other words, we have the probability of, in step 2 ($x^2$), we stay in state L and go to R, plus the probability of staying in R in $x^2$ and keep in R.
+
+We can build a MC to model some distribution. The MC not converge always: it converge if the distribution is stationary - given a distribution $\pi$ and it respective table of distributions $T$, the distribution $\pi$ is stationary if
+\begin{equation}
+    \pi(x') = \sum_x T(x \rightarrow x')\pi(x)
+\end{equation}
+in other words, it is a probability distribution that remains unchanged in the Markov chain as time progresses. $\pi$ is invariant by the matrix $T$.
+
+Another important theorem is that, if $T(x \rightarrow x') > 0$ for all $x, x'$, then exists a unique $\pi$ that satisfies $\pi(x') = \sum_x T(x \rightarrow x')\pi(x)$, and thus the markov chain converges to $\pi$ from any starting point.
 
 \section{Final}
 Look at this links to perform our GMM:
