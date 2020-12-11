@@ -959,6 +959,38 @@ in other words, it is a probability distribution that remains unchanged in the M
 
 Another important theorem is that, if $T(x \rightarrow x') > 0$ for all $x, x'$, then exists a unique $\pi$ that satisfies $\pi(x') = \sum_x T(x \rightarrow x')\pi(x)$, and thus the markov chain converges to $\pi$ from any starting point.
 
+\section{Class 41 - Gibbs Sampling}
+In this method, we start with a random point, \eg $(x_1^0, x_2^0, x_3^0) = (0, 0, 0)$. The value of this point, in many cases, does not matter. Thus, we need to sample each dimension, as in 
+\begin{equation}
+    x_1^1 \sim p(x_1| x_2^0, x_3^0) = \frac{\hat{p}(x1, x_2^0, x_3^0)}{Z_1}
+\end{equation}
+we repeat this for the second attribute, $x_2^1 \sim p(x_2| x_1^1, x_3^0)$, and the third attribute, $x_3^1 \sim p(x_3| x_1^1, x_2^1)$.
+
+To proof the Gibbs Sampling, we need to show that 
+\begin{equation}
+    p(x',y',z') = \sum_{x, y, z} q(x, y, z \rightarrow x', y', z')p(x, y, z)
+\end{equation}
+where $q$ is the table with distributions of each markovian state. This proof uses discrete attributes: if the attributes are continuous, we can simply change the summations by integrals, and the proof will be the same. We can change the term of $q$ by its respective computation, giving
+\begin{equation}
+    = \sum_{x, y, z} p(x'| y = y, z = z) p(y'| x = x', z = z) p(z'| x = x', y = y') p(x, y, z)
+\end{equation}
+rearranging and grouping some terms, we have
+\begin{equation}
+    = p(z'| x', y') \sum_{y, z}\left( p(x'| y, z) p(y'|x', z)\sum_x p(x, y, z) \right)
+\end{equation}
+note that the last summation is equal to $p(y, z)$. Joining the first term of the summation with the term from the last summation, we have the joint distribution. Replacing, we have
+\begin{equation}
+    = p(z'| x', y') \sum_{z} p(y'|x', z) \sum_ y p(x', y, z)
+\end{equation}
+the last summation is equal to $p(x', y)$, which give us
+\begin{equation}
+    = p(z'| x', y') \sum_{z} p(x', y', z)
+\end{equation}
+where the last summation is equal to $p(x', y')$. Thus, we have
+\begin{equation}
+    = p(x', y', z')
+\end{equation}
+which proof to us that, starting from a point $p(x, y, z)$ and perform the Gibbs Sampling, is equal to sampling from $p(x', y', z')$, which is a stationary point that we can achieve starting from any point.
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
@@ -967,5 +999,4 @@ Look at this links to perform our GMM:
     \item Sklearn train example: \url{https://scikit-learn.org/0.16/modules/generated/sklearn.mixture.GMM.html}
     \item Variational GMM: \url{https://scikit-learn.org/stable/modules/mixture.html}
 \end{itemize}
-
 \end{document}
