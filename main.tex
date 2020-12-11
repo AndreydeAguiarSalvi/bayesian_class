@@ -916,7 +916,7 @@ and
     \item Discrete Distributions: each category have its own probability, which all summed is one. We can sampling by, generating a number $r \approx \mathcal{U}[0, 1]$ and choosing the category where the sampled value falls inside the range of respective category.
     \item Continuous Distributions: we cam sample, \eg using the Central Limit Theorem. Exemplifying, if we have a Gaussian $\mathcal{N}(0, 1)$, we can compute 
     \begin{equation}
-        z = \sum_{i=1}^12 x_i - 6, \\x_i \approx \mathcal{U}[0, 1]
+        z = \sum_{i=1}^{12} x_i - 6, \\x_i \approx \mathcal{U}[0, 1]
     \end{equation}
     where $12$ is a chosen number of points and $6$ if the half of the number of points. Thus, $p(z) \approx \mathcal{N}(0, 1)$.
     \item Continuous Unknown Distribution: with we have a real and unknown distribution $p(x)$, we first choose a upper-bound distribution $q(x)$ where $p(x) \leq 2q(x)$. Thus, we need to sample the points $\title{x} \approx q(x)$ and $y \approx \mathcal{U}[0, 2q(\title{x})]$. Then, we accept $\title{x}$ as a point sampled from $p()$ with probability $\frac{p(x)}{2q(x)}$, if $y \leq p(x)$. If we want to ensure a more probability of $p$ sampling, we can use a normalization constant $M$, with $p(x) \leq Mq(x)$, and thus only $\frac{1}{M}$ of points will be acceptable.
@@ -991,6 +991,23 @@ where the last summation is equal to $p(x', y')$. Thus, we have
     = p(x', y', z')
 \end{equation}
 which proof to us that, starting from a point $p(x, y, z)$ and perform the Gibbs Sampling, is equal to sampling from $p(x', y', z')$, which is a stationary point that we can achieve starting from any point.
+
+\section{Class 42 - Gibbs Sampling}
+The given example is very visual and difficult to describe in words. Summarizing, with a point $(0, 0)$, using the Gibbs Sampling to sample from a 2D Gaussian, we sample the coordinate $x_2$ with the conditional probability of $x_1 = 0$, giving $x_2'$. Thus, we sample $x_1$ with the conditional probability of $x_2 = x_2'$. Performing many steps, we have the Gaussian samples.
+
+Summarizing the Gibbs Sampling:
+\begin{itemize}
+    \item Pros: \begin{itemize}
+        \item Reduce multidimensional sampling to sequence of 1D samplings
+        \item simple to implement
+    \end{itemize}
+    \item Cons: \begin{itemize}
+        \item highly correlated samples: many samples similar to each other
+        \item slow convergence
+        \item not parallel: we need to sample from each dimension sequentially
+    \end{itemize}
+\end{itemize}
+
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
