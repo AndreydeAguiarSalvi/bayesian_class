@@ -1100,6 +1100,21 @@ Bellow, follows a comparison between the methods and its respective approximatio
 \end{itemize}
 
 
+\section{Class 47 - MCMC for LDA}
+We can perform text generation with MCMC. Remembering, in text generation we a document, which is a set of topics, and each topic is a set of words, each with a respective probability.
+\begin{itemize}
+    \item Known: $W$ data
+    \item Unknown: $\Phi$ latent variables, distribution over words of each topic
+    \item Unknown: $Z$ latent variables, topic of each word
+    \item Unknown: $\Theta$ latent variables, distribution over topics for each document
+\end{itemize}
+\Eg, we can sample a word with Gibbs Sampling, 
+\begin{equation}
+    p(\Phi, \Theta, Z| W) \sim \{Gibbs\}
+\end{equation}
+Thus, with an initial $\Phi^0, \Theta^0, Z^0$, we update $\Phi$, dimension by dimension, with $\phi_1^1 \sim p(\phi_1|\phi_2^0, \phi_3^0, ..., \Theta^0, Z^0, W)$, $\phi_2^1 \sim p(\phi_2|\phi_1^1, \phi_3^0, ..., \Theta^0, Z^0, W)$, and etc. The same ideia is repeated for $\Theta$ and $Z$
+
+
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
