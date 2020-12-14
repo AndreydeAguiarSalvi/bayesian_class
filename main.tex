@@ -1008,6 +1008,36 @@ Summarizing the Gibbs Sampling:
     \end{itemize}
 \end{itemize}
 
+\section{Class 43 - Metropolis-Hasting}
+It is another approach for sampling, which tries to avoid the correlated problem from Gibbs Sampling. In this approach, we need to perform,
+\begin{itemize}
+    \item For k = 1, 2, ... \begin{enumerate}
+        \item Sample $x'$ from a \textcolor{red}{wrong} distribution $\mathcal{Q}(x^k \rightarrow x')$
+        \item Accept proposal $x'$ with probability $A(x^k \rightarrow x')$
+        \item Otherwise, $x^{k+1} = x^k$
+    \end{enumerate}
+\end{itemize}
+For this, we need the Markov Chain $\mathcal{Q}$ and the Table Distribution $T$, computed by
+\begin{equation}
+    T(x \rightarrow x') = \mathcal{Q}(x \rightarrow x')A(x \rightarrow x')
+\end{equation}
+for all $x \neq x'$. In the case of not update $x$, thus we need the following equation
+\begin{equation}
+    T(x \rightarrow x) = \mathcal{Q}(x \rightarrow x)A(x \rightarrow x) + \sum_{x'\neq x} \mathcal{Q}(x \rightarrow x')(1 - A(x \rightarrow x'))
+\end{equation}
+To choose $A$, we use the policy
+\begin{equation}
+    \pi(x') = \sum_x \pi(x)T(x\rightarrow x')
+\end{equation}
+which makes use of the Detailed Balance definition. This definition says that, if the markov chain probability of reach a state $x'$ from $x$ is the same as reach $x$ from $x'$, as the equation bellow,
+\begin{equation}
+    \pi(x)T(x \rightarrow x') = \pi(x')T(x' \rightarrow x)
+\end{equation}
+then the probability of $\pi(x')$ is the equation before, $\pi(x') = \sum_x \pi(x)T(x\rightarrow x')$. The proof is given bellow
+\begin{equation}
+    \sum_x \pi(x)T(x\rightarrow x') = \sum_x \pi(x')T(x'\rightarrow x)
+\end{equation}
+thus, we can get $\pi(x')$ in the rigth equality side and move it out from the summation, once time is is a constant, as $\pi(x') \sum_x T(x'\rightarrow x$. Then, we have a summation of all the probabilities, which is always $1$. Thus, we have $\sum_x \pi(x)T(x\rightarrow x') =  \pi(x')$.
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
