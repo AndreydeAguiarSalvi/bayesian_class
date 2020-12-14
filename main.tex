@@ -1112,8 +1112,16 @@ We can perform text generation with MCMC. Remembering, in text generation we a d
 \begin{equation}
     p(\Phi, \Theta, Z| W) \sim \{Gibbs\}
 \end{equation}
-Thus, with an initial $\Phi^0, \Theta^0, Z^0$, we update $\Phi$, dimension by dimension, with $\phi_1^1 \sim p(\phi_1|\phi_2^0, \phi_3^0, ..., \Theta^0, Z^0, W)$, $\phi_2^1 \sim p(\phi_2|\phi_1^1, \phi_3^0, ..., \Theta^0, Z^0, W)$, and etc. The same ideia is repeated for $\Theta$ and $Z$
+Thus, with an initial $\Phi^0, \Theta^0, Z^0$, we update $\Phi$, dimension by dimension, with $\phi_1^1 \sim p(\phi_1|\phi_2^0, \phi_3^0, ..., \Theta^0, Z^0, W)$, $\phi_2^1 \sim p(\phi_2|\phi_1^1, \phi_3^0, ..., \Theta^0, Z^0, W)$, and etc. The same ideia is repeated for $\Theta$ and $Z$.
 
+\section{Class 49 - Scaling Variational Inference}
+Bayesian inference can be performed efficiently in large datasets using Deep Learning.
+\subsection{Unbiased Estimation}
+An estimator is unbiased if its expected value is equals to the thing it estimates. \Eg if we have a distribution, we can sample some points and compute the mean, which is the expectation. Then, we can perform another set of samples, generating another mean. Repeating this process iterativelly, we can create a set of means, and the mean of this set tends to be equal to the real mean of the distribution, if the estimator is unbiased. Thus, we have
+\begin{equation}
+    \mathbb{E}_{p(x)}f(x) \sim \frac{1}{M} \sum_{s=1}^M f(x_s) = R
+\end{equation}
+where $R$ is the real mean.
 
 \section{Final}
 Look at this links to perform our GMM:
