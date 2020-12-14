@@ -1038,6 +1038,21 @@ then the probability of $\pi(x')$ is the equation before, $\pi(x') = \sum_x \pi(
     \sum_x \pi(x)T(x\rightarrow x') = \sum_x \pi(x')T(x'\rightarrow x)
 \end{equation}
 thus, we can get $\pi(x')$ in the rigth equality side and move it out from the summation, once time is is a constant, as $\pi(x') \sum_x T(x'\rightarrow x$. Then, we have a summation of all the probabilities, which is always $1$. Thus, we have $\sum_x \pi(x)T(x\rightarrow x') =  \pi(x')$.
+
+\section{Class 44 - Choosing a Critic}
+In the equation bellow, we have the desired distribution $\pi$, which we want to sample from, and Markov Chain $\mathcal{Q}$, which we want to fix
+\begin{equation}
+    \sum_x \pi(x)\mathcal{Q}(x \rightarrow x')A(x \rightarrow x') = \sum_x \pi(x')\mathcal{Q}(x' \rightarrow x)A(x' \rightarrow x) 
+\end{equation}
+where $T(x\rightarrow x')$ is equal to $\mathcal{Q}(x \rightarrow x')A(x \rightarrow x') $ and $T(x'\rightarrow x)$ is equal to $\mathcal{Q}(x' \rightarrow x)A(x' \rightarrow x)$. Isolating the critic $A$, we have
+\begin{equation}
+    \frac{A(x \rightarrow x')}{A(x' \rightarrow x)} = \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')}
+\end{equation}
+For simplification, lets $\rho = \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')}$. If we temporally assume that $\rho < 1$, thus we have $A(x \rightarrow x') = \rho$ and $A(x' \rightarrow x) = 1$, and also
+\begin{equation}
+    A(x \rightarrow x') = \min \left\{1, \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')} \right\}
+\end{equation}
+
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
