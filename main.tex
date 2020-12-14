@@ -1053,6 +1053,24 @@ For simplification, lets $\rho = \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q
     A(x \rightarrow x') = \min \left\{1, \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')} \right\}
 \end{equation}
 
+
+\section{Class 45 - Example of Metropolis Hastings}
+In the example, sampling from a 1D distribution, the Markov Chain $\mathcal{Q}$ is represented as $\mathcal{Q}(x \rightarrow x') = \mathcal{N}(x, 1)$, where $x = 0$, in the example, is the local minimum from the real distribution, which seems like a two-modal distribution. Thus, sampling $x'$, it accepts it with probability $A(x \rightarrow x') = \min \left\{1, \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')} \right\} = \frac{\pi(x')}{\pi(x)}$, where $\pi$ is the real distribution. Thus, this process is repeated iterativelly, until convergence.
+
+Summarizing the Metropolis Hastings have the property of reject samples applied to Markov Chains, which is:
+\begin{itemize}
+    \item Pros: \begin{itemize}
+        \item You can choose the family of Markov Chain: \eg $\mathcal{N}(x, 1)$ or $\mathcal{N}(x, 0.2^2)$. As higher the variance, less correlated the points due to a higher oscillation, but increasing the convergence time.
+        \item Work with unnormalized densities.
+        \item Easy to implement.
+    \end{itemize}
+    \item Cons: \begin{itemize}
+        \item Samples are still correlated.
+        \item Have to choose among family of Markov Chains.
+    \end{itemize}
+\end{itemize}
+
+
 \section{Final}
 Look at this links to perform our GMM:
 \begin{itemize}
