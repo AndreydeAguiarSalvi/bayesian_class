@@ -960,7 +960,7 @@ in other words, it is a probability distribution that remains unchanged in the M
 Another important theorem is that, if $T(x \rightarrow x') > 0$ for all $x, x'$, then exists a unique $\pi$ that satisfies $\pi(x') = \sum_x T(x \rightarrow x')\pi(x)$, and thus the markov chain converges to $\pi$ from any starting point.
 
 \section{Class 41 - Gibbs Sampling}
-In this method, we start with a random point, \eg $(x_1^0, x_2^0, x_3^0) = (0, 0, 0)$. The value of this point, in many cases, does not matter. Thus, we need to sample each dimension, as in 
+This is a Monte Carlo Markov Chain (MCMC) approach for sampling. We start with a random point, \eg $(x_1^0, x_2^0, x_3^0) = (0, 0, 0)$. The value of this point, in many cases, does not matter. Thus, we need to sample each dimension, as in 
 \begin{equation}
     x_1^1 \sim p(x_1| x_2^0, x_3^0) = \frac{\hat{p}(x1, x_2^0, x_3^0)}{Z_1}
 \end{equation}
@@ -1009,7 +1009,7 @@ Summarizing the Gibbs Sampling:
 \end{itemize}
 
 \section{Class 43 - Metropolis-Hasting}
-It is another approach for sampling, which tries to avoid the correlated problem from Gibbs Sampling. In this approach, we need to perform,
+It is another MCMC approach for sampling, which tries to avoid the correlated problem from Gibbs Sampling. In this approach, we need to perform,
 \begin{itemize}
     \item For k = 1, 2, ... \begin{enumerate}
         \item Sample $x'$ from a \textcolor{red}{wrong} distribution $\mathcal{Q}(x^k \rightarrow x')$
@@ -1053,7 +1053,6 @@ For simplification, lets $\rho = \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q
     A(x \rightarrow x') = \min \left\{1, \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')} \right\}
 \end{equation}
 
-
 \section{Class 45 - Example of Metropolis Hastings}
 In the example, sampling from a 1D distribution, the Markov Chain $\mathcal{Q}$ is represented as $\mathcal{Q}(x \rightarrow x') = \mathcal{N}(x, 1)$, where $x = 0$, in the example, is the local minimum from the real distribution, which seems like a two-modal distribution. Thus, sampling $x'$, it accepts it with probability $A(x \rightarrow x') = \min \left\{1, \frac{\mathcal{Q}(x' \rightarrow x)}{\mathcal{Q}(x \rightarrow x')} \right\} = \frac{\pi(x')}{\pi(x)}$, where $\pi$ is the real distribution. Thus, this process is repeated iterativelly, until convergence.
 
@@ -1067,6 +1066,36 @@ Summarizing the Metropolis Hastings have the property of reject samples applied 
     \item Cons: \begin{itemize}
         \item Samples are still correlated.
         \item Have to choose among family of Markov Chains.
+    \end{itemize}
+\end{itemize}
+
+\section{Class 46 - Monte Carlo}
+Monte Carlo was used in Gibbs Sampling and Metropolis Hastings. Its general formula is given by
+\begin{equation}
+    \mathbb{E}_{p(x)}\frac{1}{M}\sum_{s=1}^M f(x_s) = \mathbb{E}_{p(x)}f(x_s)
+\end{equation}
+which assumes that $x_s \approx p(x)$, it is an unbiased estimation. Thus, as larger $M$, better is accuracy. This is different from the Variational Inference
+\begin{equation}
+    \mathbb{E}_{p(x)}f(x) \approx \mathbb{E}_{q(x)}f(x)
+\end{equation}
+which assumes that $p(x) \approx q(x)$, it accuracy increases as more samples. We can see a graphical comparison in Figure \ref{fig:MCError}, where the y axis is the error and the x axis the time.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{MCError.pdf}
+    \caption{Error comparison between Monte Carlo and Variational Inference}
+    \label{fig:MCError}
+\end{figure}
+Bellow, follows a comparison between the methods and its respective approximation of the probability, from the best at top to the worst at bottom:
+\begin{itemize}
+    \item Full inference (or Bayesian): $p(T, \theta| X)$
+    \begin{itemize}
+        \item Mean field: $q(T)q(\theta) \approx p(T, \theta| X)$
+        \item MCMC: $T_s, \Theta_s \sim p(T, \Theta| X)$
+    \end{itemize}
+    \item EM algorithm: $q(T), \theta = \theta_{MP}$
+    \begin{itemize}
+        \item Variational EM: $q_1(T_1)...q_n(T_n), \theta = \theta_{MP}$
+        \item MCMC EM: $T_s \sim p(T|\Theta, X), \Theta = \theta_{MP}$
     \end{itemize}
 \end{itemize}
 
